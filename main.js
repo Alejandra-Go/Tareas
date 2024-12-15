@@ -1,29 +1,6 @@
-// Comentario
-
-// Variable
-// var (antes las llamaban así)
-// let nombreDeAlumno;
-// console.log(nombre);
-// nombre = "Alejandra";
-
-// Hola Mundo desde la consola
-// console.log("Hola Mundo desde la consola!")
-// Hola mundo desde un alert
-//alert("Hola mundo desde un alert!");
-// tipos de datos
-// string
-//let texto = "soy un texto";
-// Number
-//let numero = 42;
-// Boolean 2 datos, ejemplo true o false
-//let verdadero = true;
-// undefined 
-//let undefined;
-// null
-//let vacio = null;
-
 // Definir mis constantes y mis variables
 // Aquí usamos comillas simples ('')
+
 const fecha = document.querySelector('#fecha');
 const lista = document.querySelector('#lista');
 const elemento = document.querySelector('#elemento');
@@ -41,34 +18,40 @@ fecha.innerHTML = FECHA.toLocaleDateString('es-MX',{
     month: 'short',
     day: 'numeric',
 });
+// DOM
 
+// Función agregar tarea
 function agregarTarea(tarea,id,hecho,eliminar) {
     if (eliminar) {
         return
     };
+
     const realizado = hecho ? check : uncheck;
-    const LINE = hecho ? tachado : '';
-    const elemento = ` <li id="elemento">
-    <i id="${id}" data="hecho" class="bi ${realizado}"></i>
-    <p class="tarea-lista text ${LINE}">${tarea}</p>
-    <i id="${id}" data="eliminar" class="bi bi-x"></i>
-</li> `
-    lista.insertAdjacentHTML("beforeend",elemento);
+    const LINE = hecho ? tachado : '' ;
+    const elemento = `<li id="elemento">
+                    <i id="${id}" data="hecho" class="bi ${realizado}"></i>
+                    <p class="tarea-lista text ${LINE}">${tarea}</p>
+                    <i id="${id}" data="eliminar" class="bi bi-x"></i>
+                </li> `
+                lista.insertAdjacentHTML("beforeend",elemento);
+
 };
 
 function tareaRealizada(element) {
+
     element.classlist.toggle(check);
     element.classlist.toggle(uncheck);
+
     element.parentNode.querySelector('.text').classlist.toggle(tachado);
     LIST[element.id].realizado = LIST[element.id].realizado ?false :true;
-};
+}
 
 function tareaEliminada(element) {
     element.parentNode.parentNode.removeChild(element.parentNode);
     LIST[element.id].eliminar = true;    
 };
 
-botonAgregar.addEventListener("click", () =>{
+botonAgregar.addEventListener("click", () => {
 const tarea = input.value;
 if (tarea) {
     agregarTarea(tarea, id, false, false)
@@ -81,19 +64,18 @@ if (tarea) {
     localStorage.setItem("TODO", JSON.stringify(LIST));
     id++;
     input.value = "";
-}
+    }
 });
 
 lista.addEventListener("click", function(event){
-const element = event.target;
-const elementData = element.attributes.data.value;
-if (elementData == "hecho") {
-    tareaRealizada(element);    
-} else if (elementData == "eliminar")
-{
-    tareaEliminada(element);
-};
-localStorage.setItem("TODO", JSON.stringify(LIST));
+    const element = event.target;
+    const elementData = element.attributes.data.value;
+    if (elementData == "hecho") {
+        tareaRealizada(element);    
+    } else if (elementData == "eliminar") {
+        tareaEliminada(element);
+    };
+    localStorage.setItem("TODO", JSON.stringify(LIST));
 });
 
 let data = localStorage.getItem ("TODO");
@@ -104,12 +86,12 @@ if (data) {
 } else {
     LIST = [];
     id = 0;
-};
+}
 
 function cargarLista(array) {
     array.forEach(
         function (item) {
             agregarTarea(item.nombre, item.id, item.hecho, item.eliminar);
         }
-    );
+    )
 };

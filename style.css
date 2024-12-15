@@ -1,10 +1,15 @@
 :root{
-    --color-primario: #3d0a49;
-    --color-secundario: #60478f;
-    --color-bg: #B39CD0;
-    --bg: #e0daf7;
+    --color-primario: #c5f7f0;
+    --color-secundario: #562155;
+    --color-bg: #72577c;
+    --bg: #a9c2c9;
     --text-size: 1.5rem;
-    --color-text: #FFFFFF;
+    --color-text: #c9c8d4;
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 body{
     font-family: "Sour Gummy", sans-serif;
@@ -20,7 +25,7 @@ body{
     height: 600px;
     margin: 0 auto;
     padding: 40px;
-    background-color: var(--color-primario);
+    background-color: var(--color-secundario);
     border-radius: 10px;
 }
 .encabezado{
@@ -40,7 +45,7 @@ body{
     height: 100%;
     border: none;
     border-radius: 8px;
-    background-color: var(--color-primario);
+    background-color: var(--color-secundario);
     padding-left: 10px;
 }
 #input::placeholder{
@@ -70,12 +75,12 @@ body{
     margin: 5px 0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
 }
 .tareas i:hover{
     color: var(--color-secundario);
 }
 .tachado{
     text-decoration: line-through;
-    color: #5015bd;
+    color: var(--color-secundario);
 }
