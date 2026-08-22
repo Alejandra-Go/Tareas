@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 :root{
     --color-primario: #c5f7f0;
     --color-secundario: #562155;
@@ -83,4 +84,203 @@ body{
 .tachado{
     text-decoration: line-through;
     color: var(--color-secundario);
+=======
+:root {
+    --color-bg-main: #0f0c1b;       /* Fondo de la pantalla principal */
+    --color-card: #1d1830;          /* Fondo del contenedor de tareas */
+    --color-input: #251f3d;         /* Fondo del campo de texto */
+    --color-accent: #a855f7;        /* Morado vibrante para botones y detalles */
+    --color-accent-hover: #c084fc;  /* Morado más claro al pasar el mouse */
+    --color-text-main: #f3f4f6;     /* Texto principal legible */
+    --color-text-muted: #9ca3af;    /* Texto secundario o placeholders */
+    --color-task-bg: #2d264d;       /* Fondo de cada elemento de la lista */
+    --color-tachado: #6b7280;       /* Color gris para tareas completadas */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Sour Gummy", sans-serif;
+    background-color: var(--color-bg-main);
+    min-height: 100vh;
+    color: var(--color-text-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.contenedor {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--color-card);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Nuevo diseño para el Panel de Datos Analíticos */
+.panel-datos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tarjeta-dato {
+    background-color: var(--color-input);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 12px 5px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.tarjeta-dato.destacados {
+    background-color: rgba(168, 85, 247, 0.15);
+    border: 1px solid var(--color-accent);
+}
+
+.cifra-dato {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--color-text-main);
+    line-height: 1.2;
+}
+
+.tarjeta-dato.destacados .cifra-dato {
+    color: var(--color-accent-hover);
+}
+
+.etiqueta-dato {
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+}
+
+.encabezado h1 {
+    font-size: 2.2rem;
+    color: var(--color-text-main);
+    margin-bottom: 5px;
+}
+
+#fecha {
+    font-size: 1rem;
+    color: var(--color-accent);
+    margin-bottom: 20px;
+    display: block;
+    text-transform: capitalize;
+}
+
+.agregar {
+    background-color: var(--color-input);
+    border-radius: 12px;
+    height: 55px;
+    display: flex;
+    align-items: center;
+    padding: 5px 5px 5px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 25px;
+}
+
+.agregar input {
+    flex: 1;
+    height: 100%;
+    border: none;
+    background: transparent;
+    color: var(--color-text-main);
+    font-size: 1rem;
+    outline: none;
+}
+
+#input::placeholder {
+    color: var(--color-text-muted);
+}
+
+.agregar i {
+    font-size: 32px;
+    color: var(--color-accent);
+    transition: all 0.2s ease;
+    padding: 5px;
+}
+
+.agregar i:hover {
+    transform: scale(1.1);
+    color: var(--color-accent-hover);
+    cursor: pointer;
+}
+
+/* Sección tareas */
+.tareas h2 {
+    font-size: 1.2rem;
+    color: var(--color-text-muted);
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+#lista {
+    list-style: none;
+}
+
+.tareas li {
+    background-color: var(--color-task-bg);
+    border-radius: 12px;
+    padding: 14px 18px;
+    color: var(--color-text-main);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    transition: transform 0.2s ease;
+}
+
+.tareas li:hover {
+    transform: translateY(-2px);
+}
+
+/* Forzar que el texto ocupe todo el espacio central */
+.tareas li p {
+    flex: 1;
+    font-size: 1.05rem;
+    word-break: break-word;
+    transition: all 0.2s ease;
+}
+
+/* Iconos de las tareas */
+.tareas li i {
+    font-size: 20px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.bi-circle, .bi-record-circle {
+    color: var(--color-accent);
+}
+
+.bi-x {
+    color: var(--color-text-muted);
+    font-size: 24px !important;
+}
+
+.bi-x:hover {
+    color: #ef4444 !important; /* Rojo al querer borrar */
+}
+
+/* Tarea Completada */
+.tachado {
+    text-decoration: line-through;
+    color: var(--color-tachado);
+    opacity: 0.6;
+>>>>>>> 695e0a3 (Feat: Diseño morado y panel de análisis de datos)
 }
