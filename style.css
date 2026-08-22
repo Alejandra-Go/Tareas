@@ -1,90 +1,3 @@
-<<<<<<< HEAD
-:root{
-    --color-primario: #c5f7f0;
-    --color-secundario: #562155;
-    --color-bg: #72577c;
-    --bg: #a9c2c9;
-    --text-size: 1.5rem;
-    --color-text: #c9c8d4;
-}
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body{
-    font-family: "Sour Gummy", sans-serif;
-    background-color: var(--bg);
-    height: 100vh;
-    color: var(--color-text);
-    display: flex;
-    justify-content: center;
-}
-.contenedor{
-    max-width: 80%;
-    width: 400px;
-    height: 600px;
-    margin: 0 auto;
-    padding: 40px;
-    background-color: var(--color-secundario);
-    border-radius: 10px;
-}
-.encabezado{
-    padding: 10px 0 5px 0;
-}
-.agregar{
-    background-color: var(--color-bg);
-    border-radius: 15px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    gap: 70px;
-}
-.agregar input{
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 8px;
-    background-color: var(--color-secundario);
-    padding-left: 10px;
-}
-#input::placeholder{
-    font-size: 1.1rem;
-    color: var(--color-text)
-}
-.agregar i{
-    font-size: 45px;
-    color: var(--color-primario)
-}
-.agregar i:hover{
-    transform: scale(1.1);
-    cursor: pointer;
-}
-/* Sección tareas */
-.tareas h2{
-    margin-bottom: 20px;
-}
-.tareas {
-    font-size: 25px;
-}
-.tareas li{
-    background-color: var(--color-text);
-    border-radius: 15px;
-    padding: 10px;
-    color: var(--color-bg);
-    margin: 5px 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-.tareas i:hover{
-    color: var(--color-secundario);
-}
-.tachado{
-    text-decoration: line-through;
-    color: var(--color-secundario);
-=======
 :root {
     --color-bg-main: #0f0c1b;       /* Fondo de la pantalla principal */
     --color-card: #1d1830;          /* Fondo del contenedor de tareas */
@@ -122,6 +35,64 @@ body {
     padding: 30px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.encabezado{
+    padding: 10px 0 5px 0;
+}
+.agregar{
+    background-color: var(--color-bg);
+    border-radius: 15px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    gap: 70px;
+}
+.agregar input{
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 8px;
+    background-color: var(--color-secundario);
+    padding-left: 10px;
+}
+#input::placeholder{
+    font-size: 1.1rem;
+    color: var(--color-text)
+}
+.agregar i{
+    font-size: 45px;
+    color: var(--color-primario)
+}
+.agregar i:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+/* Sección tareas */
+.tareas h2{
+    margin-bottom: 20px;
+}
+.tareas {
+    font-size: 25px;
+}
+.tareas li{
+    background-color: var(--color-text);
+    border-radius: 15px;
+    padding: 10px;
+    color: var(--color-bg);
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.tareas i:hover{
+    color: var(--color-secundario);
+}
+.tachado{
+    text-decoration: line-through;
+    color: var(--color-secundario);
 }
 
 /* Nuevo diseño para el Panel de Datos Analíticos */
@@ -282,5 +253,4 @@ body {
     text-decoration: line-through;
     color: var(--color-tachado);
     opacity: 0.6;
->>>>>>> 695e0a3 (Feat: Diseño morado y panel de análisis de datos)
 }
