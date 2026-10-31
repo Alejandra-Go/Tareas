@@ -1,97 +1,116 @@
-// Definir mis constantes y mis variables
-// Aquí usamos comillas simples ('')
+// Definir constantes y variables
 
 const fecha = document.querySelector('#fecha');
 const lista = document.querySelector('#lista');
-const elemento = document.querySelector('#elemento');
 const input = document.querySelector('#input');
 const botonAgregar = document.querySelector('#botonAgregar');
-const check = 'bi-record-circle';
-const tachado = 'tachado';
-const uncheck = 'bi-circle';
-let LIST;
-let id;
 
-const FECHA = new Date ();
-fecha.innerHTML = FECHA.toLocaleDateString('es-MX',{
-    weekday: 'long',
-    month: 'short',
-    day: 'numeric',
+let tareas = JSON.parse(localStorage.getItem('TODO') || '[]');
+
+fecha.textContent = new Date().toLocaleDateString('es-MX', {
+  weekday: 'long',
+  month: 'short',
+  day: 'numeric'
 });
-// DOM
 
-// Función agregar tarea
-function agregarTarea(tarea,id,hecho,eliminar) {
-    if (eliminar) {
-        return
-    };
+// Definir funciones
 
-    const realizado = hecho ? check : uncheck;
-    const LINE = hecho ? tachado : '' ;
-    const elemento = `<li id="elemento">
-                    <i id="${id}" data="hecho" class="bi ${realizado}"></i>
-                    <p class="tarea-lista text ${LINE}">${tarea}</p>
-                    <i id="${id}" data="eliminar" class="bi bi-x"></i>
-                </li> `
-                lista.insertAdjacentHTML("beforeend",elemento);
-
-};
-
-function tareaRealizada(element) {
-
-    element.classlist.toggle(check);
-    element.classlist.toggle(uncheck);
-
-    element.parentNode.querySelector('.text').classlist.toggle(tachado);
-    LIST[element.id].realizado = LIST[element.id].realizado ?false :true;
+function guardarTareas() {
+  localStorage.setItem('TODO', JSON.stringify(tareas));
 }
 
-function tareaEliminada(element) {
-    element.parentNode.parentNode.removeChild(element.parentNode);
-    LIST[element.id].eliminar = true;    
-};
+function actualizarIndicadores() {
+  const activas = tareas.filter(tarea => !tarea.eliminar);
+  const completadas = activas.filter(tarea => tarea.hecho);
+  const pendientes = activas.length - completadas.length;
 
-botonAgregar.addEventListener("click", () => {
-const tarea = input.value;
-if (tarea) {
-    agregarTarea(tarea, id, false, false)
-    LIST.push({
-        nombre: tarea,
-        id: id,
-        hecho: false,
-        eliminar: false,
-    });
-    localStorage.setItem("TODO", JSON.stringify(LIST));
-    id++;
-    input.value = "";
+  const productividad = activas.length > 0
+    ? Math.round((completadas.length / activas.length) * 100)
+    : 0;
+
+  document.querySelector('#totalPendientes').textContent = pendientes;
+  document.querySelector('#totalCompletadas').textContent = completadas.length;
+  document.querySelector('#tasaExito').textContent = `${productividad}%`;
+}
+
+function renderizarTareas() {
+  lista.innerHTML = '';
+
+  tareas.filter(tarea => !tarea.eliminar).forEach(tarea => {
+    const li = document.createElement('li');
+
+    const marcar = document.createElement('i');
+    marcar.className = `bi ${tarea.hecho ? 'bi-record-circle' : 'bi-circle'}`;
+    marcar.setAttribute('role', 'button');
+    marcar.setAttribute('aria-label', 'Cambiar estado de tarea');
+    marcar.tabIndex = 0;
+
+    const texto = document.createElement('p');
+    texto.className = `tarea-lista text ${tarea.hecho ? 'tachado' : ''}`;
+    texto.textContent = tarea.nombre;
+
+    const eliminar = document.createElement('i');
+    eliminar.className = 'bi bi-x';
+    eliminar.setAttribute('role', 'button');
+    eliminar.setAttribute('aria-label', 'Eliminar tarea');
+    eliminar.tabIndex = 0;
+
+    function completarTarea() {
+      tarea.hecho = !tarea.hecho;
+      guardarTareas();
+      renderizarTareas();
     }
-});
 
-lista.addEventListener("click", function(event){
-    const element = event.target;
-    const elementData = element.attributes.data.value;
-    if (elementData == "hecho") {
-        tareaRealizada(element);    
-    } else if (elementData == "eliminar") {
-        tareaEliminada(element);
-    };
-    localStorage.setItem("TODO", JSON.stringify(LIST));
-});
+    function eliminarTarea() {
+      tarea.eliminar = true;
+      guardarTareas();
+      renderizarTareas();
+    }
 
-let data = localStorage.getItem ("TODO");
-if (data) {
-    LIST = JSON.parse(data);
-    id = LIST.length;
-    cargarLista(LIST);
-} else {
-    LIST = [];
-    id = 0;
+    marcar.addEventListener('click', completarTarea);
+    eliminar.addEventListener('click', eliminarTarea);
+
+    marcar.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        completarTarea();
+      }
+    });
+
+    eliminar.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        eliminarTarea();
+      }
+    });
+
+    li.append(marcar, texto, eliminar);
+    lista.appendChild(li);
+  });
+
+  actualizarIndicadores();
 }
 
-function cargarLista(array) {
-    array.forEach(
-        function (item) {
-            agregarTarea(item.nombre, item.id, item.hecho, item.eliminar);
-        }
-    )
-};
+function agregarTarea() {
+  const nombre = input.value.trim();
+  if (!nombre) return;
+
+  tareas.push({
+    nombre,
+    id: Date.now(),
+    hecho: false,
+    eliminar: false
+  });
+
+  guardarTareas();
+  input.value = '';
+  renderizarTareas();
+}
+
+botonAgregar.addEventListener('click', agregarTarea);
+
+input.addEventListener('keydown', e => {
+  if (e.key === 'Enter') agregarTarea();
+});
+
+renderizarTareas();
